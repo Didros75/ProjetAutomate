@@ -60,43 +60,35 @@ def txt_dictionnaire(fichier, numero):
 def est_standard(automate):
     if len(automate["initiaux"]) != 1:
         return False
-
     init = automate["initiaux"][0]
-
-    for (dep, symb, arr) in automate["transitions"]:
-        if arr == init:
+    for (tran) in automate["transitions"]:
+        if tran[2] == init:
             return False
-
     return True
 
+
 def standardiser(automate):
-    if est_standard(automate):
-        return automate
+    i = automate["nb_etats"]
+    reconnait_mot_vide = False
+    for e in automate["initiaux"]:
+        if e in automate["finaux"]:
+            reconnait_mot_vide = True
 
-    new_init = max(range(automate["nb_etats"])) + 1
+    if reconnait_mot_vide:
+        automate["finaux"].append(i)
 
-    nouvelles_transitions = list(automate["transitions"])
+    for etat_initial in automate["initiaux"]:
+        for (src, lettre, dst) in automate["transitions"]:
+            if src == etat_initial:
+                nouvelle = (i, lettre, dst)
+                if nouvelle not in automate["transitions"]:
+                    automate["transitions"].append(nouvelle)
 
-    for init in automate["initiaux"]:
-        for (dep, symb, arr) in automate["transitions"]:
-            if dep == init:
-                nouvelles_transitions.append((new_init, symb, arr))
+    automate["initiaux"] = [i]
+    automate["nb_etats"] += 1
+    return automate
 
-    nouveaux_finaux = list(automate["finaux"])
-    for init in automate["initiaux"]:
-        if init in automate["finaux"]:
-            nouveaux_finaux.append(new_init)
-            break
-
-    return {
-        "nb_etats": automate["nb_etats"] + 1,
-        "alphabet": automate["alphabet"],
-        "initiaux": [new_init],
-        "finaux": list(set(nouveaux_finaux)),
-        "transitions": nouvelles_transitions
-    }
-
-
-auto = txt_dictionnaire("automates", "10")
+auto = txt_dictionnaire("automates", "05")
 print(auto)
-
+auto2 = standardiser(auto)
+print(auto2)
