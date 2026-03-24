@@ -1,5 +1,9 @@
 def txt_dictionnaire(fichier, numero):
-
+    """
+    :param fichier: prend en parametre un fichier (automates.txt) contenant les 44 automates
+    :param numero: le numero de l'automate qu'on veut
+    :return: un dictionnaire avec tous les parametres de l'automate : son nb d'etats, l'alphabet utilisé, les etats initiaux et finaux et une liste des transitions sous forme de tuple (ex: (1, 'b', 2), lien entre sommet 1 et 2 avec l'etat b)
+    """
     with open(fichier, "r") as f:
         lignes = [l.strip() for l in f if l.strip() != ""]
 
@@ -8,28 +12,28 @@ def txt_dictionnaire(fichier, numero):
         if lignes[i] == f"#{numero}":
             i += 1
 
-            # 1. Taille alphabet
+            # Taille alphabet
             taille_alphabet = int(lignes[i])
             alphabet = [chr(ord('a') + j) for j in range(taille_alphabet)]
             i += 1
 
-            # 2. Nombre d'états
+            # Nombre d'états
             nb_etats = int(lignes[i])
             i += 1
 
-            # 3. États initiaux
+            # États initiaux
             parts = list(map(int, lignes[i].split()))
             nb_initiaux = parts[0]
             initiaux = parts[1:]
             i += 1
 
-            # 4. États finaux
+            # États finaux
             parts = list(map(int, lignes[i].split()))
             nb_finaux = parts[0]
             finaux = parts[1:]
             i += 1
 
-            # 5. Nombre de transitions
+            # Nombre de transitions
             nb_transitions = int(lignes[i])
             i += 1
 
@@ -58,6 +62,10 @@ def txt_dictionnaire(fichier, numero):
 
 
 def est_standard(automate):
+    """
+    :param automate: l'automate dont on veut verifier si il est standard
+    :return: True ou false
+    """
     if len(automate["initiaux"]) != 1:
         return False
     init = automate["initiaux"][0]
@@ -68,6 +76,13 @@ def est_standard(automate):
 
 
 def standardiser(automate):
+    """
+    :param automate: l'automate a standardiser
+    :return: l'automate standardisé
+    """
+    if est_standard(automate):
+        print("deja standardisé")
+        return automate
     i = automate["nb_etats"]
     reconnait_mot_vide = False
     for e in automate["initiaux"]:
@@ -87,6 +102,8 @@ def standardiser(automate):
     automate["initiaux"] = [i]
     automate["nb_etats"] += 1
     return automate
+
+
 
 auto = txt_dictionnaire("automates", "05")
 print(auto)
