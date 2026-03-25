@@ -2,7 +2,7 @@ from main import *
 
 def est_synchrone(automate):
     """
-    :param automate:
+    :param automate: un automate pour verifier si il est synchrone
     :return: si l'automate est synchrone (si il n'a pas de e dans ses transitions)
     """
     for trans in automate["transitions"]:
@@ -12,6 +12,10 @@ def est_synchrone(automate):
     return True
 
 def est_deterministe(automate):
+    """
+    :param automate: un automate pour verifier si il est deterministe
+    :return: True si il est deterministe (si il a une seule entrée et si une lettre ne peux realiser qu'une seule transition)
+    """
     if len(automate["initiaux"]) > 1:
         print(f"Non déterministe : plusieurs états initiaux {automate['initiaux']}")
         return False
@@ -30,6 +34,10 @@ def est_deterministe(automate):
 
 
 def est_complet(automate):
+    """
+    :param automate: un automate pour verifier si il est complet
+    :return: True si l'automate est complet (si chaque element de l'alphabet mene a un etat)
+    """
     complet = True
     for etat in range(automate["nb_etats"]):
         for lettre in automate["alphabet"]:
@@ -44,6 +52,10 @@ def est_complet(automate):
 
 
 def completion(automate):
+    """
+    :param automate: automate qu'on veut completer
+    :return: l'automate completé (ajout d'un etat poubelle pour les transitions manquantes)
+    """
     poubelle = "P"
     poubelle_utilise = False
 
@@ -63,6 +75,10 @@ def completion(automate):
 
 
 def formatter_etat(ensemble):
+    """
+    :param ensemble: la lsite des etats qu'on veux formatter
+    :return: le nouvel etat dans le bon format
+    """
     if ensemble == frozenset({"P"}):
         return "P"
     etats = sorted(ensemble)
@@ -73,6 +89,10 @@ def formatter_etat(ensemble):
 
 
 def determinisation_et_completion(automate):
+    """
+    :param automate: l'automate qu'on veut determiniser et completer
+    :return: l'automate determinisé et completé
+    """
     initial = frozenset(automate["initiaux"])
     etats_a_traiter = [initial]
     etats_traites = []
@@ -117,6 +137,10 @@ def determinisation_et_completion(automate):
 
 
 def afficher_automate(automate):
+    """
+    :param automate: l'automate qu'on veut afficher
+    :return: rien
+    """
     print(f"Nombre d'états : {automate['nb_etats']}")
     print(f"Alphabet       : {automate['alphabet']}")
     print(f"Initiaux       : {automate['initiaux']}")
@@ -127,6 +151,10 @@ def afficher_automate(automate):
 
 
 def determiniser_et_completer(AF):
+    """
+    :param AF: l'automate qu'on veut determiniser et completer
+    :return: verifie si l'automate n'est pas deja determinise ou complet, appelle les fonctions sinon et return l'automate AFDC
+    """
     if est_synchrone(automate) == False:
         print("Determinisation impossible sur un automate asynchrone")
         return AF
