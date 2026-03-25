@@ -38,11 +38,18 @@ def txt_dictionnaire(fichier, numero):
             i += 1
 
             transitions = []
+
             for _ in range(nb_transitions):
-                t = lignes[i]
-                etat_dep = int(t[0])
-                symbole = t[1]
-                etat_arr = int(t[2])
+                t = lignes[i].strip()
+                j = 0
+                while j < len(t) and t[j].isdigit():
+                    j += 1
+                etat_dep = int(t[:j])
+                k = j + 1
+                while k < len(t) and not t[k].isdigit():
+                    k += 1
+                symbole = t[j:k]
+                etat_arr = int(t[k:])
                 transitions.append((etat_dep, symbole, etat_arr))
                 i += 1
 
@@ -105,7 +112,8 @@ def standardiser(automate):
 
 
 
-auto = txt_dictionnaire("automates", "05")
+"""auto = txt_dictionnaire("automates", "05")
 print(auto)
 auto2 = standardiser(auto)
 print(auto2)
+"""
