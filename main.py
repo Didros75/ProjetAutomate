@@ -1,5 +1,8 @@
+# Affichage de l'automate
+
 def txt_dictionnaire(fichier, numero):
     """
+    Transforme un fichier en automate lisible par python
     :param fichier: prend en parametre un fichier (automates.txt) contenant les 44 automates
     :param numero: le numero de l'automate qu'on veut
     :return: un dictionnaire avec tous les parametres de l'automate : son nb d'etats, l'alphabet utilisé, les etats initiaux et finaux et une liste des transitions sous forme de tuple (ex: (1, 'b', 2), lien entre sommet 1 et 2 avec l'etat b)
@@ -60,9 +63,11 @@ def txt_dictionnaire(fichier, numero):
     return None
 
 
+# Standardisation
 
 def est_standard(automate):
     """
+    Vérifie si un automate est standart ou non
     :param automate: l'automate dont on veut verifier si il est standard
     :return: True ou false
     """
@@ -77,6 +82,7 @@ def est_standard(automate):
 
 def standardiser(automate):
     """
+    Standardise un automate
     :param automate: l'automate a standardiser
     :return: l'automate standardisé
     """
