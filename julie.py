@@ -1,3 +1,5 @@
+import  determinisation_completion
+
 def afficher_automate(auto) :
     """
     Affiche (print) un automate
@@ -39,9 +41,9 @@ def afficher_automate(auto) :
     nb_transitions = len(auto["transitions"])
     print(str(nb_transitions), "transitions")
 
-    afficher_transitions(auto)
+    afficher_transitions(auto, liste_etats)
 
-def afficher_transitions(auto):
+def afficher_transitions(auto, liste_etats):
     etats = auto['nb_etats']
     alphabet = auto['alphabet']
     transitions = auto['transitions']
@@ -51,36 +53,43 @@ def afficher_transitions(auto):
     # Définition d'un dictionnaire pour stocker les transitions
 
     dict_transi = {}
-    for i in range(etats) :
-        dict_transi[i] = {}
-        for elem in alphabet :
-            dict_transi[i][elem] = []
+    for elem in liste_etats :
+        dict_transi[elem] = {}
+        for lettre in alphabet :
+            dict_transi[elem][lettre] = []
 
     for elem in transitions :
         dict_transi[elem[0]][elem[1]].append(elem[2])
 
+    # Regarder quelle transition est la plus longue pour ajuster la table
+
+    taille_max = 0
+    for cle in dict_transi.keys():
+        if len(str(cle)) > taille_max:
+            taille_max = len(str(cle))
+
     # Affichage de l'alphabet
 
-    str_alphabet = "\t|\t"
+    str_alphabet = " " * (taille_max)+ "\t|\t"
     for elem in alphabet :
-        str_alphabet += elem + "\t|\t"
+        str_alphabet += elem + " " * (taille_max-len(str(elem))) + "\t|\t"
     print(str_alphabet)
-    print("---------------------")
+    print("------" * 3 + "-" * 3 * (taille_max))
 
     # Affichage des transitions
 
-    for i in range(etats) :
-        str_ligne = str(i) + "\t|\t"
+    for etat in liste_etats :
+        str_ligne = str(etat) + " " * (taille_max-len(str(etat))) + "\t|\t"
         for lettre in alphabet :
-            for elem in dict_transi[i][lettre] :
-                str_ligne += str(elem) + " "
-            str_ligne += "\t|\t"
+            for elem in dict_transi[etat][lettre] :
+                str_ligne += str(elem)
+            str_ligne += " " * (taille_max-len(str(elem))) + "\t|\t"
 
         # Ecriture si c'est un état final ou initial
 
-        if i in initiaux :
+        if etat in initiaux :
             str_ligne += "\tEtat initial"
-        if i in finaux :
+        if etat in finaux :
             str_ligne += "\tEtat final"
 
         print(str_ligne)
@@ -105,8 +114,7 @@ def reconnaitre_mot(mot, auto) :
     :return: oui si le mot est reconnu, non sinon
     """
 
-    # ATTENTION : Utiliser la fonction de Melvin pour déterminiser
-
+    determinisation_completion.determiniser_et_completer(auto)
     etat_actuel = auto["initiaux"][0]
 
     while mot != "":
@@ -156,6 +164,8 @@ def automate_complementaire(auto) :
     :return: le dictionnaire de l'automate complémentaire
     """
 
+    determinisation_completion.determiniser_et_completer(auto)
+
     nv_finaux = [i for i in range(auto["nb_etats"])]
     for elem in auto["finaux"] :
         nv_finaux.remove(elem)
@@ -163,4 +173,4 @@ def automate_complementaire(auto) :
     auto["finaux"] = nv_finaux
     return auto
 
-complementation({'nb_etats': 5, 'alphabet': ['a', 'b'], 'initiaux': [1, 3], 'finaux': [2, 4], 'transitions': [(1, 'a', 2), (1, 'b', 0), (3, 'a', 0), (3, 'b', 4), (0, 'a', 0), (0, 'b', 0)]})
+afficher_automate({'nb_etats': 5, 'alphabet': ['a', 'b'], 'initiaux': [1, 3], 'finaux': [2, 4], 'transitions': [(1, 'a', 2), (1, 'b', 0), (3, 'a', 0), (3, 'b', 4), (0, 'a', 0), (0, 'b', 0)]})
