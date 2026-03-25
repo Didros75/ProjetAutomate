@@ -1,3 +1,5 @@
+from main import *
+
 def est_synchrone(automate):
     """
     :param automate:
@@ -125,7 +127,7 @@ def afficher_automate(automate):
 
 
 def determiniser_et_completer(AF):
-    if est_synchrone(AF) == False:
+    if est_synchrone(automate) == False:
         print("Determinisation impossible sur un automate asynchrone")
         return AF
     if est_deterministe(AF):
@@ -139,3 +141,8 @@ def determiniser_et_completer(AF):
     print("\nAutomate déterministe et complet (AFDC) :")
     afficher_automate(AFDC)
     return AFDC
+
+
+automate = txt_dictionnaire("automates", "29")
+afficher_automate(automate)
+automate2=determiniser_et_completer(automate)
