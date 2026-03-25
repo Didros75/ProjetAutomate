@@ -1,4 +1,71 @@
-import  determinisation_completion
+def txt_dictionnaire(fichier, numero):
+    """
+    Transforme un fichier en automate lisible par python
+    :param fichier: prend en parametre un fichier (automates.txt) contenant les 44 automates
+    :param numero: le numero de l'automate qu'on veut
+    :return: un dictionnaire avec tous les parametres de l'automate : son nb d'etats, l'alphabet utilisé, les etats initiaux et finaux et une liste des transitions sous forme de tuple (ex: (1, 'b', 2), lien entre sommet 1 et 2 avec l'etat b)
+    """
+    with open(fichier, "r") as f:
+        lignes = [l.strip() for l in f if l.strip() != ""]
+
+    i = 0
+    while i < len(lignes):
+        if lignes[i] == f"#{numero}":
+            i += 1
+
+            # Taille alphabet
+            taille_alphabet = int(lignes[i])
+            alphabet = [chr(ord('a') + j) for j in range(taille_alphabet)]
+            i += 1
+
+            # Nombre d'états
+            nb_etats = int(lignes[i])
+            i += 1
+
+            # États initiaux
+            parts = list(map(int, lignes[i].split()))
+            nb_initiaux = parts[0]
+            initiaux = parts[1:]
+            i += 1
+
+            # États finaux
+            parts = list(map(int, lignes[i].split()))
+            nb_finaux = parts[0]
+            finaux = parts[1:]
+            i += 1
+
+            # Nombre de transitions
+            nb_transitions = int(lignes[i])
+            i += 1
+
+            transitions = []
+
+            for _ in range(nb_transitions):
+                t = lignes[i].strip()
+                j = 0
+                while j < len(t) and t[j].isdigit():
+                    j += 1
+                etat_dep = int(t[:j])
+                k = j + 1
+                while k < len(t) and not t[k].isdigit():
+                    k += 1
+                symbole = t[j:k]
+                etat_arr = int(t[k:])
+                transitions.append((etat_dep, symbole, etat_arr))
+                i += 1
+
+            return {
+                "nb_etats": nb_etats,
+                "alphabet": alphabet,
+                "initiaux": initiaux,
+                "finaux": finaux,
+                "transitions": transitions
+            }
+
+        else:
+            i += 1
+
+    return None
 
 def afficher_automate(auto) :
     """
@@ -44,7 +111,12 @@ def afficher_automate(auto) :
     afficher_transitions(auto, liste_etats)
 
 def afficher_transitions(auto, liste_etats):
-    etats = auto['nb_etats']
+    """
+    Affiche la table de transition
+    :param auto: le dictionnaire de l'automate
+    :param liste_etats: la liste des états du graphe
+    :return:
+    """
     alphabet = auto['alphabet']
     transitions = auto['transitions']
     initiaux = auto['initiaux']
@@ -93,84 +165,3 @@ def afficher_transitions(auto, liste_etats):
             str_ligne += "\tEtat final"
 
         print(str_ligne)
-
-# Reconnaissance de mots
-
-def lire_mot(mot) :
-    """
-    Demande un mot à vérifier à l'utilisateur
-    :param mot: le mot, une chaine de caractère
-    :return: le mot
-    """
-    print("Ecrire un mot à vérifier (écrire fin pour stopper la vérification) :")
-    mot = ""
-    return input(mot)
-
-def reconnaitre_mot(mot, auto) :
-    """
-    Vérifie si le mot donné en paramètre est reconnu par l'automate ou non
-    :param mot: le mot à vérifier, chaine de caractère
-    :param A: un dictionnaire rprésentant l'automate
-    :return: oui si le mot est reconnu, non sinon
-    """
-
-    determinisation_completion.determiniser_et_completer(auto)
-    etat_actuel = auto["initiaux"][0]
-
-    while mot != "":
-        transition_trouvee = False
-
-        for elem in auto['transitions']:
-            if etat_actuel == elem[0] and mot[0] == elem[1]:
-                etat_actuel = elem[2]
-                mot = mot[1:]
-                transition_trouvee = True
-                break
-
-        if not transition_trouvee:
-            return "non"
-
-    if etat_actuel in auto["finaux"]:
-        return "oui"
-    return "non"
-
-def reconnaissance(auto) :
-    """
-    lance la reconnaissance des mots jusq'au mot "fin"
-    :return: none
-    """
-    mot = ""
-    while mot != "fin" :
-        mot = lire_mot(mot)
-        reponse = reconnaitre_mot(mot, auto)
-        print(reponse)
-
-# Langage complémentaire
-
-def complementation(auto) :
-    """
-    Appelle la fonction qui complémente l'automate
-    :param auto: le dictionnaire de l'automate initial
-    :return: le dictionnaire de l'automate complémentaire
-    """
-    AComp = automate_complementaire(auto)
-    afficher_automate(AComp)
-    return AComp
-
-def automate_complementaire(auto) :
-    """
-    Créer l'automate qui reconnaît le langage complémentaire
-    :param auto: le dictionnaire de l'automate initial
-    :return: le dictionnaire de l'automate complémentaire
-    """
-
-    determinisation_completion.determiniser_et_completer(auto)
-
-    nv_finaux = [i for i in range(auto["nb_etats"])]
-    for elem in auto["finaux"] :
-        nv_finaux.remove(elem)
-
-    auto["finaux"] = nv_finaux
-    return auto
-
-afficher_automate({'nb_etats': 5, 'alphabet': ['a', 'b'], 'initiaux': [1, 3], 'finaux': [2, 4], 'transitions': [(1, 'a', 2), (1, 'b', 0), (3, 'a', 0), (3, 'b', 4), (0, 'a', 0), (0, 'b', 0)]})
