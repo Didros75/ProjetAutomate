@@ -1,9 +1,14 @@
 from main import *
 
 def est_synchrone(automate):
-    for lettre in automate["alphabet"]:
-        if lettre == "ε":
-            return False
+    """
+    :param automate:
+    :return: si l'automate est synchrone (si il n'a pas de e dans ses transitions)
+    """
+    for trans in automate["transitions"]:
+        for char in trans:
+            if char == "e":
+                return False
     return True
 
 def est_deterministe(automate):
@@ -137,9 +142,7 @@ def determiniser_et_completer(AF):
     afficher_automate(AFDC)
     return AFDC
 
-for i in range(35):
-    i_t=str(i+10)
-    print(i_t)
-    automate = txt_dictionnaire("automates", i_t)
-    afficher_automate(automate)
-    automate2=determiniser_et_completer(automate)
+
+automate = txt_dictionnaire("automates", "29")
+afficher_automate(automate)
+automate2=determiniser_et_completer(automate)
