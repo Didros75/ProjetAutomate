@@ -59,11 +59,15 @@ def afficher_transitions(auto):
     for elem in transitions :
         dict_transi[elem[0]][elem[1]].append(elem[2])
 
+    # Affichage de l'alphabet
+
     str_alphabet = "\t|\t"
     for elem in alphabet :
         str_alphabet += elem + "\t|\t"
     print(str_alphabet)
     print("---------------------")
+
+    # Affichage des transitions
 
     for i in range(etats) :
         str_ligne = str(i) + "\t|\t"
@@ -71,9 +75,15 @@ def afficher_transitions(auto):
             for elem in dict_transi[i][lettre] :
                 str_ligne += str(elem) + " "
             str_ligne += "\t|\t"
-        print(str_ligne)
 
-#afficher_automate({'nb_etats': 5, 'alphabet': ['a', 'b'], 'initiaux': [1, 3], 'finaux': [2, 4], 'transitions': [(1, 'a', 2), (1, 'b', 0), (3, 'a', 0), (3, 'b', 4), (0, 'a', 0), (0, 'b', 0)]})
+        # Ecriture si c'est un état final ou initial
+
+        if i in initiaux :
+            str_ligne += "\tEtat initial"
+        if i in finaux :
+            str_ligne += "\tEtat final"
+
+        print(str_ligne)
 
 # Reconnaissance de mots
 
@@ -127,4 +137,30 @@ def reconnaissance(auto) :
         reponse = reconnaitre_mot(mot, auto)
         print(reponse)
 
-reconnaissance({'nb_etats': 5, 'alphabet': ['a', 'b'], 'initiaux': [1, 3], 'finaux': [2, 4], 'transitions': [(1, 'a', 2), (1, 'b', 0), (3, 'a', 0), (3, 'b', 4), (0, 'a', 0), (0, 'b', 0)]})
+# Langage complémentaire
+
+def complementation(auto) :
+    """
+    Appelle la fonction qui complémente l'automate
+    :param auto: le dictionnaire de l'automate initial
+    :return: le dictionnaire de l'automate complémentaire
+    """
+    AComp = automate_complementaire(auto)
+    afficher_automate(AComp)
+    return AComp
+
+def automate_complementaire(auto) :
+    """
+    Créer l'automate qui reconnaît le langage complémentaire
+    :param auto: le dictionnaire de l'automate initial
+    :return: le dictionnaire de l'automate complémentaire
+    """
+
+    nv_finaux = [i for i in range(auto["nb_etats"])]
+    for elem in auto["finaux"] :
+        nv_finaux.remove(elem)
+
+    auto["finaux"] = nv_finaux
+    return auto
+
+complementation({'nb_etats': 5, 'alphabet': ['a', 'b'], 'initiaux': [1, 3], 'finaux': [2, 4], 'transitions': [(1, 'a', 2), (1, 'b', 0), (3, 'a', 0), (3, 'b', 4), (0, 'a', 0), (0, 'b', 0)]})

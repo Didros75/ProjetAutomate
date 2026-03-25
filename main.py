@@ -69,7 +69,6 @@ def txt_dictionnaire(fichier, numero):
 
     return None
 
-
 # Standardisation
 
 def est_standard(automate):
@@ -115,8 +114,6 @@ def standardiser(automate):
     automate["initiaux"] = [i]
     automate["nb_etats"] += 1
     return automate
-
-
 
 """auto = txt_dictionnaire("automates", "05")
 print(auto)
