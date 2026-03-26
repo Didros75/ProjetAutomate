@@ -1,14 +1,11 @@
-from main import *
-
 def est_synchrone(automate):
     """
     :param automate: un automate pour verifier si il est synchrone
     :return: si l'automate est synchrone (si il n'a pas de e dans ses transitions)
     """
-    for trans in automate["transitions"]:
-        for char in trans:
-            if char == "e":
-                return False
+    for lettre in automate["alphabet"]:
+        if lettre == "e":
+            return False
     return True
 
 def est_deterministe(automate):
@@ -77,9 +74,9 @@ def completion(automate):
 def formatter_etat(ensemble):
     """
     :param ensemble: la liste des etats qu'on veux formatter
-    :return: le nouvel etat dans le bon format
+    :return: le nouvel etat dans le bon format en chaine de charactères
     """
-    if ensemble == frozenset({"P"}):
+    if ensemble == set({"P"}):
         return "P"
     etats = sorted(ensemble)
     if all(e <= 9 for e in etats):
@@ -87,13 +84,24 @@ def formatter_etat(ensemble):
     else:
         return ".".join(str(e) for e in etats)
 
+def fermeture_epsilon(etats, automate):
+    fermeture = set(etats)
+    pile = list(etats)
+    while pile:
+        etat = pile.pop()
+        for (src, l, dst) in automate["transitions"]:
+            if src == etat and l == "e" and dst not in fermeture:
+                fermeture.add(dst)
+                pile.append(dst)
+    return fermeture
 
 def determinisation_et_completion(automate):
     """
-    :param automate: l'automate qu'on veut determiniser et completer
-    :return: l'automate determinisé et completé
+    :param automate: automate qu'on veut determiniser
+    :return: l'automate determinisé et complété
     """
-    initial = frozenset(automate["initiaux"])
+
+    initial = fermeture_epsilon(automate["initiaux"], automate)
     etats_a_traiter = [initial]
     etats_traites = []
     nouvelles_transitions = []
@@ -111,30 +119,36 @@ def determinisation_et_completion(automate):
                 break
 
         for lettre in automate["alphabet"]:
-            cibles = frozenset(
+            if lettre == "e":
+                continue
+            cibles = set(
                 dst for (src, l, dst) in automate["transitions"]
                 if src in courant and l == lettre
             )
+            if cibles:
+                cibles = fermeture_epsilon(cibles, automate)
             if not cibles:
-                cibles = frozenset({"P"})
+                cibles = set({"P"})
             nouvelles_transitions.append((courant, lettre, cibles))
             if cibles not in etats_traites and cibles not in etats_a_traiter:
                 etats_a_traiter.append(cibles)
 
-    poubelle = frozenset({"P"})
+    poubelle = set({"P"})
     if poubelle not in etats_traites:
         etats_traites.append(poubelle)
         for lettre in automate["alphabet"]:
-            nouvelles_transitions.append((poubelle, lettre, poubelle))
+            if lettre != "e":
+                nouvelles_transitions.append((poubelle, lettre, poubelle))
+
+    alphabet_sans_epsilon = [l for l in automate["alphabet"] if l != "e"]
 
     return {
         "nb_etats": len(etats_traites),
-        "alphabet": automate["alphabet"],
+        "alphabet": alphabet_sans_epsilon,
         "initiaux": [formatter_etat(initial)],
         "finaux": [formatter_etat(e) for e in nouveaux_finaux],
         "transitions": [(formatter_etat(src), l, formatter_etat(dst)) for (src, l, dst) in nouvelles_transitions]
     }
-
 
 def afficher_automate(automate):
     """
@@ -155,9 +169,6 @@ def determiniser_et_completer(AF):
     :param AF: l'automate qu'on veut determiniser et completer
     :return: verifie si l'automate n'est pas deja determinise ou complet, appelle les fonctions sinon et return l'automate AFDC
     """
-    if est_synchrone(AF) == False:
-        print("Determinisation impossible sur un automate asynchrone")
-        return AF
     if est_deterministe(AF):
         if est_complet(AF):
             AFDC = AF

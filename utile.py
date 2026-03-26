@@ -50,6 +50,8 @@ def txt_dictionnaire(fichier, numero):
                 while k < len(t) and not t[k].isdigit():
                     k += 1
                 symbole = t[j:k]
+                if symbole=="e" and "e" not in alphabet:
+                    alphabet.append("e")
                 etat_arr = int(t[k:])
                 transitions.append((etat_dep, symbole, etat_arr))
                 i += 1
@@ -146,7 +148,7 @@ def afficher_transitions(auto, liste_etats):
     for elem in alphabet :
         str_alphabet += elem + " " * (taille_max-len(str(elem))) + "\t|\t"
     print(str_alphabet)
-    print("------" * 3 + "-" * 3 * (taille_max))
+    print("   " + "------" * (len(alphabet)+1) + "-" * 3 * (taille_max))
 
     # Affichage des transitions
 
