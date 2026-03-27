@@ -234,7 +234,7 @@ def etape_minimisation(AFDC):
     sous_titre("Minimisation")
     info("Calcul de l'automate minimal en cours...")
 
-    AFDCM = minimisation.minimiser(AFDC)
+    AFDCM = minimisation.minimise(AFDC)
 
     separateur()
     sous_titre("Automate Minimal (AFDCM)")
