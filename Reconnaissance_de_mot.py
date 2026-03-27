@@ -18,7 +18,7 @@ def reconnaitre_mot(mot, auto) :
     :return: oui si le mot est reconnu, non sinon
     """
 
-    determinisation_completion.determiniser_et_completer(auto)
+    #determinisation_completion.determiniser_et_completer(auto)
     etat_actuel = auto["initiaux"][0]
 
     while mot != "":
