@@ -8,6 +8,7 @@ import determinisation_completion
 import standardisation
 import Reconnaissance_de_mot
 import langage_complementaire
+import mermaid
 import minimisation
 
 #  Constantes ANSI pour la couleur dans le terminal
@@ -326,6 +327,7 @@ def traiter_automate():
             f"Reconnaître des mots       {'(AFDC requis)' if not AFDC else ''}",
             f"Construire le langage complémentaire  {'(AFDC requis)' if not AFDC else ''}",
             f"Changer d'automate (retour au chargement)",
+            f"Convertir en Mermaid (Bonus)",
             f"Quitter le programme",
         ]
         choix = menu_choix(etapes)
@@ -392,8 +394,27 @@ def traiter_automate():
             print("\033[2J\033[H", end="")
             return   # retour à la boucle principale -> chargement d'un autre automate
 
-        # 8. Quitter
+        #chargement en Mermaid
         elif choix == 8:
+
+            print()
+            print("Choisissez la forme que vous souhaitez exporter : ")
+            liste = [f"Automate de base", f"Automate determinisé", f"Automate minimisé"]
+            nouveau_choix=menu_choix(liste)
+            if nouveau_choix == 1:
+                auto2=auto
+            elif nouveau_choix == 2:
+                auto3=auto2=determinisation_completion.determiniser_et_completer(auto)
+            elif nouveau_choix == 3:
+                auto3=determinisation_completion.determiniser_et_completer(auto)
+                auto2=minimisation.minimise(auto3)
+            choix_fichier = input("Choisissez le nom du fichier : ")
+            mermaid.exporter_mermaid(auto2, choix_fichier)
+            attendre()
+
+
+        # 9. Quitter
+        elif choix == 9:
             titre("Au revoir !")
             print(GREY + "  Merci d'avoir utilisé ce programme." + RESET)
             print()
