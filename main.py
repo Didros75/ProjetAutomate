@@ -404,10 +404,11 @@ def traiter_automate():
             if nouveau_choix == 1:
                 auto2=auto
             elif nouveau_choix == 2:
-                auto3=auto2=determinisation_completion.determiniser_et_completer(auto)
+                auto2=determinisation_completion.determiniser_et_completer(auto)
             elif nouveau_choix == 3:
                 auto3=determinisation_completion.determiniser_et_completer(auto)
                 auto2=minimisation.minimise(auto3)
+            print()
             choix_fichier = input("Choisissez le nom du fichier : ")
             mermaid.exporter_mermaid(auto2, choix_fichier)
             attendre()
