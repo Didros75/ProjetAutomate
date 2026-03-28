@@ -91,7 +91,7 @@ def afficher_automate(auto) :
         if elem[2] not in liste_etats :
             liste_etats.append(elem[2])
     print(str(auto["nb_etats"]), "états :")
-    print("\tQ = ", sorted(liste_etats))
+    print("\tQ = ", liste_etats)
 
     # Affichage des états initiaux
 

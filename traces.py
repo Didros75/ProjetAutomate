@@ -4,13 +4,16 @@ pour suivre la trace d'exécution des 44 automates
 """
 
 import sys
+
+import utile
 from utile import txt_dictionnaire, afficher_automate
 from standardisation import est_standard, standardiser
 from determinisation_completion import *
 from minimisation import minimise
-
+import os
 
 fichiers_automates = "automates"
+os.mkdir("traces/")
 dossier = "traces/"
 
 def traiter_automate(numero):
@@ -28,7 +31,7 @@ def traiter_automate(numero):
         #Lecture
         print("\n>>> LECTURE DE L'AUTOMATE\n")
         automate = txt_dictionnaire(fichiers_automates, f"{numero:02d}")
-        afficher_automate(automate)
+        utile.afficher_automate(automate)
 
         #Standardisation
         print("\n>>> STANDARDISATION\n")
@@ -37,7 +40,7 @@ def traiter_automate(numero):
         else:
             print("Non standard -> standardisation...")
             automate = standardiser(automate)
-            afficher_automate(automate)
+            utile.afficher_automate(automate)
 
         #Déterminisation et complétion
         print("\n>>> DÉTERMINISATION ET COMPLÉTION\n")
@@ -46,11 +49,12 @@ def traiter_automate(numero):
         #Minimisation
         print("\n>>> MINIMISATION\n")
         AFDCM = minimise(AFDC)
-        afficher_automate(AFDCM)
+        utile.afficher_automate(automate)
 
         print(f"\nFIN DU TRAITEMENT DE L'AUTOMATE #{numero:02d}")
         sys.stdout = sys.__stdout__
 
 """exécution du programme sur les 44 automates"""
-for n in range(1, 45):
-    traiter_automate(n)
+if __name__ == "__main__":
+    for n in range(1, 45):
+        traiter_automate(n)

@@ -1,3 +1,5 @@
+import utile
+
 def est_synchrone(automate):
     """
     :param automate: un automate pour verifier si il est synchrone
@@ -178,5 +180,5 @@ def determiniser_et_completer(AF):
         AFDC = determinisation_et_completion(AF)
 
     print("\nAutomate déterministe et complet (AFDC) :")
-    afficher_automate(AFDC)
+    utile.afficher_automate(AFDC)
     return AFDC
