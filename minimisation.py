@@ -80,6 +80,6 @@ def create_AFDCM(AFDC, partitionM):
     for i in range(len(partitionM)):
          temoin=partitionM[i][0]
          for transi in AFDC['transitions'] :
-            if temoin in transi[0]:
+            if temoin == transi[0]:
                 AFDCM['transitions'].append((associations[temoin],transi[1],associations[transi[2]]))
     return AFDCM

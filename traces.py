@@ -1,86 +1,45 @@
-import utile
-import determinisation_completion
-import Reconnaissance_de_mot
-import standardisation
-import langage_complementaire
-import mermaid
-from utile import txt_dictionnaire
-
-def numero_automate(n):
-    if n < 10:
-        return "0" + str(n)
-    return str(n)
-
-def nom_fichier_trace(n):
-    if n < 10:
-        return "traces/trace_0" + str(n) + ".txt"
-    return "traces/trace_" + str(n) + ".txt"
+import sys
+from utile import txt_dictionnaire, afficher_automate
+from standardisation import est_standard, standardiser
+from determinisation_completion import *
+from minimisation import minimise
 
 
-def traiter_un_automate(n):
+fichiers_automates = "automates"
+dossier = "traces/"
 
-    global FICHIER_TRACE
-    FICHIER_TRACE = open(nom_fichier_trace(n), "w", encoding="utf-8")
+def traiter_automate(numero):
+    with open(f"{dossier}automate_{numero:02d}.txt", "w", encoding="utf-8") as f:
+        sys.stdout = f
 
-    print("========================================")
-    print("Traitement de l'automate", numero_automate(n))
-    print("========================================")
-    print("")
+        print(f"AUTOMATE #{numero:02d}")
 
-    print("1) Lecture de l'automate initial")
-    auto = utile.txt_dictionnaire("automates", numero_automate(n))
-    utile.afficher_automate(auto)
-    print("")
+        # 1. Lecture
+        print("\n>>> LECTURE DE L'AUTOMATE\n")
+        automate = txt_dictionnaire(fichiers_automates, f"{numero:02d}")
+        afficher_automate(automate)
 
-    print("2) Vérification de la standardisation")
-    if standardisation.est_standard(auto):
-        print("L'automate est standard.")
-    else:
-        print("L'automate n'est pas standard.")
-    print("")
+        # 2. Standardisation
+        print("\n>>> STANDARDISATION\n")
+        if est_standard(automate):
+            print("Déjà standard.")
+        else:
+            print("Non standard -> standardisation...")
+            automate = standardiser(automate)
+            afficher_automate(automate)
 
-    print("3) Standardisation")
-    if not standardisation.est_standard(auto):
-        auto = standardisation.standardiser(auto)
-    print("")
+        # 3. Déterminisation & complétion
+        print("\n>>> DÉTERMINISATION ET COMPLÉTION\n")
+        AFDC = determiniser_et_completer(automate)
 
-    print("4) Vérification de la synchronisation")
-    if determinisation_completion.est_synchrone(auto):
-        print("L'automate est synchrone.")
-    else:
-        print("L'automate n'est pas synchrone.")
-    print("")
+        # 4. Minimisation
+        print("\n>>> MINIMISATION\n")
+        AFDCM = minimise(AFDC)
+        afficher_automate(AFDCM)
 
-    print("5) Vérification du déterminisme")
-    if determinisation_completion.est_deterministe(auto):
-        print("L'automate est deterministe.")
-    else:
-        print("L'automate n'est pas deterministe.")
-    print("")
+        print(f"\nFIN DU TRAITEMENT DE L'AUTOMATE #{numero:02d}")
+        sys.stdout = sys.__stdout__
 
-    print("6) Vérification de la complétude")
-    if determinisation_completion.est_complet(auto):
-        print("L'automate est complet.")
-    else:
-        print("L'automate n'est pas complet.")
-    print("")
-
-    print("7) Déterminisation et complétion")
-    if not determinisation_completion.est_deterministe(auto):
-        auto = determinisation_completion.determiniser_et_completer(auto)
-    print("")
-    print("Fin du traitement de l'automate", numero_automate(n))
-
-    FICHIER_TRACE.close()
-    FICHIER_TRACE = None
-
-
-
-def traitement():
-    n = 1
-    while n <= 44:
-        traiter_un_automate(n)
-        n += 1
-    print("\nLes 44 traces ont été générées.")
-
-traitement()
+# exécution du programme sur les 44 automates
+for n in range(1, 45):
+    traiter_automate(n)
