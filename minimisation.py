@@ -4,6 +4,11 @@ from itertools import count
 from determinisation_completion import est_deterministe, est_complet
 
 def concatList(L) :
+    """
+
+    :param L: une liste
+    :return: une chaine de caractere string
+    """
     strFinal=""
     for i in range(len(L)) :
          strFinal+=str(L[i])
@@ -12,6 +17,12 @@ def concatList(L) :
     return strFinal
 
 def listSub(L1, L2):
+    """
+
+    :param L1: une liste
+    :param L2: une deuxieme
+    :return: une liste
+    """
     nL=[]
     for elem in L1 :
         if elem not in L2:
@@ -20,6 +31,13 @@ def listSub(L1, L2):
 
 #petite fonction pour clarifier le code, permet de trouver la destination dans l'AFDC
 def destination(etat, lettre, transitions):
+    """
+
+    :param etat: etat de l'automate
+    :param lettre: lettre de l'aphabet de l'automate
+    :param transitions: la transition de l'etat a l'automate
+    :return:
+    """
     for t in transitions:
         if t[0] == etat and t[1] == lettre:
             return t[2]
@@ -27,6 +45,14 @@ def destination(etat, lettre, transitions):
 
 #les signatures sont la trace des destinations par etat
 def signature(etat, alphabet, transitions, partition):
+    """
+
+    :param etat: etat de l'automate
+    :param alphabet: alphabet
+    :param transitions: les transitions
+    :param partition: un partition
+    :return: un tuple de signature (la trace des groupes d'état)
+    """
     s = []
     for l in alphabet:
         d = destination(etat, l, transitions)
@@ -38,6 +64,13 @@ def signature(etat, alphabet, transitions, partition):
 
 #Creation d'une partition en partant des signatures de la précédente
 def fPartition(partition, alphabet, transitions):
+    """
+
+    :param partition: partition de l'autoname (structure de donnée qui traduit chaque étape de minimisation)
+    :param alphabet: alphabet de l'automate
+    :param transitions: transitions de l'automate
+    :return: une nouvelle partition minimisé
+    """
     nPartition = []
     for p in partition:
         pS = {}
@@ -53,6 +86,11 @@ def fPartition(partition, alphabet, transitions):
 
 #minimise
 def minimise(AFDC):
+    """
+
+    :param AFDC: prend un automate fini deterministe et complet
+    :return: retourne un AFDCM (AFDC minimisé)
+    """
     #init
     finaux = AFDC['finaux']
     tous_etats = list({t[0] for t in AFDC['transitions']})
@@ -66,7 +104,14 @@ def minimise(AFDC):
     #compil AFDCM
     return create_AFDCM(AFDC,partition)
 
+
 def create_AFDCM(AFDC, partitionM):
+    """
+
+    :param AFDC: prend un automate fini deterministe et complet
+    :param partitionM: une partition minimisé
+    :return: un AFDCM (AFDC minimisé via la partition)
+    """
     AFDCM={}
     associations = {}
     for grp in partitionM :
