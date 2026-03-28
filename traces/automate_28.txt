@@ -1,0 +1,72 @@
+AUTOMATE #28
+
+>>> LECTURE DE L'AUTOMATE
+
+1 symboles dans l’alphabet :
+	A =  ['a']
+6 états :
+	Q =  [1, 2, 3, 4, 5, 0]
+1 états initiaux :
+	I =  [1]
+2 états finaux :
+	T =  [0, 3]
+7 transitions
+ 	|	a	|	
+   ---------------
+1	|	24	|		Etat initial
+2	|	3	|	
+3	|	2	|		Etat final
+4	|	5	|	
+5	|	0	|	
+0	|	4	|		Etat final
+
+>>> STANDARDISATION
+
+Déjà standard.
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+Non déterministe : depuis l'état 1 avec 'a' -> [2, 4]
+
+Automate déterministe et complet (AFDC) :
+1 symboles dans l’alphabet :
+	A =  ['a']
+8 états :
+	Q =  ['1', '24', '35', '02', '34', '25', '03', 'P']
+1 états initiaux :
+	I =  ['1']
+4 états finaux :
+	T =  ['02', '03', '34', '35']
+8 transitions
+  	|	a 	|	
+   ------------------
+1 	|	24	|		Etat initial
+24	|	35	|	
+35	|	02	|		Etat final
+02	|	34	|		Etat final
+34	|	25	|		Etat final
+25	|	03	|	
+03	|	24	|		Etat final
+P 	|	P 	|	
+
+>>> MINIMISATION
+
+1 symboles dans l’alphabet :
+	A =  ['a']
+6 états :
+	Q =  [1, 2, 3, 4, 5, 0]
+1 états initiaux :
+	I =  [1]
+2 états finaux :
+	T =  [0, 3]
+7 transitions
+ 	|	a	|	
+   ---------------
+1	|	24	|		Etat initial
+2	|	3	|	
+3	|	2	|		Etat final
+4	|	5	|	
+5	|	0	|	
+0	|	4	|		Etat final
+
+FIN DU TRAITEMENT DE L'AUTOMATE #28

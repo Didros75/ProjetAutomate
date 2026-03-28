@@ -1,0 +1,76 @@
+AUTOMATE #09
+
+>>> LECTURE DE L'AUTOMATE
+
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+6 états :
+	Q =  [1, 2, 3, 4, 5, 0]
+1 états initiaux :
+	I =  [1]
+2 états finaux :
+	T =  [0, 1]
+8 transitions
+ 	|	a	|	b	|	
+   ---------------------
+1	|	2	|		|		Etat initial	Etat final
+2	|	3	|	3	|	
+3	|	4	|		|	
+4	|	5	|	5	|	
+5	|	0	|		|	
+0	|	2	|		|		Etat final
+
+>>> STANDARDISATION
+
+Déjà standard.
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+L'automate est déterministe.
+Non complet : aucune transition depuis l'état 0 avec 'b'
+Non complet : aucune transition depuis l'état 1 avec 'b'
+Non complet : aucune transition depuis l'état 3 avec 'b'
+Non complet : aucune transition depuis l'état 5 avec 'b'
+
+Automate déterministe et complet (AFDC) :
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+7 états :
+	Q =  [1, 2, 3, 4, 5, 0, 'P']
+1 états initiaux :
+	I =  [1]
+2 états finaux :
+	T =  [0, 1]
+14 transitions
+ 	|	a	|	b	|	
+   ---------------------
+1	|	2	|	P	|		Etat initial	Etat final
+2	|	3	|	3	|	
+3	|	4	|	P	|	
+4	|	5	|	5	|	
+5	|	0	|	P	|	
+0	|	2	|	P	|		Etat final
+P	|	P	|	P	|	
+
+>>> MINIMISATION
+
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+7 états :
+	Q =  [1, 2, 3, 4, 5, 0, 'P']
+1 états initiaux :
+	I =  [1]
+2 états finaux :
+	T =  [0, 1]
+14 transitions
+ 	|	a	|	b	|	
+   ---------------------
+1	|	2	|	P	|		Etat initial	Etat final
+2	|	3	|	3	|	
+3	|	4	|	P	|	
+4	|	5	|	5	|	
+5	|	0	|	P	|	
+0	|	2	|	P	|		Etat final
+P	|	P	|	P	|	
+
+FIN DU TRAITEMENT DE L'AUTOMATE #09

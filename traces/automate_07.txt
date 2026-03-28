@@ -1,0 +1,75 @@
+AUTOMATE #07
+
+>>> LECTURE DE L'AUTOMATE
+
+1 symboles dans l’alphabet :
+	A =  ['a']
+2 états :
+	Q =  [1, 0]
+1 états initiaux :
+	I =  [1]
+1 états finaux :
+	T =  [0]
+2 transitions
+ 	|	a	|	
+   ---------------
+1	|	10	|		Etat initial
+0	|		|		Etat final
+
+>>> STANDARDISATION
+
+Non standard -> standardisation...
+1 symboles dans l’alphabet :
+	A =  ['a']
+3 états :
+	Q =  [1, 0, 2]
+1 états initiaux :
+	I =  [2]
+1 états finaux :
+	T =  [0]
+4 transitions
+ 	|	a	|	
+   ---------------
+1	|	10	|	
+0	|		|		Etat final
+2	|	10	|		Etat initial
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+Non déterministe : depuis l'état 1 avec 'a' -> [1, 0]
+Non déterministe : depuis l'état 2 avec 'a' -> [1, 0]
+
+Automate déterministe et complet (AFDC) :
+1 symboles dans l’alphabet :
+	A =  ['a']
+3 états :
+	Q =  ['2', '01', 'P']
+1 états initiaux :
+	I =  ['2']
+1 états finaux :
+	T =  ['01']
+3 transitions
+  	|	a 	|	
+   ------------------
+2 	|	01	|		Etat initial
+01	|	01	|		Etat final
+P 	|	P 	|	
+
+>>> MINIMISATION
+
+1 symboles dans l’alphabet :
+	A =  ['a']
+3 états :
+	Q =  [1, 0, 2]
+1 états initiaux :
+	I =  [2]
+1 états finaux :
+	T =  [0]
+4 transitions
+ 	|	a	|	
+   ---------------
+1	|	10	|	
+0	|		|		Etat final
+2	|	10	|		Etat initial
+
+FIN DU TRAITEMENT DE L'AUTOMATE #07

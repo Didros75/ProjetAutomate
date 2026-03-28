@@ -1,0 +1,132 @@
+AUTOMATE #20
+
+>>> LECTURE DE L'AUTOMATE
+
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+9 états :
+	Q =  [1, 2, 6, 3, 7, 4, 8, 5, 0]
+5 états initiaux :
+	I =  [0, 1, 6, 7, 8]
+1 états finaux :
+	T =  [5]
+8 transitions
+ 	|	a	|	b	|	c	|	d	|	
+   ---------------------------------
+1	|	2	|		|		|		|		Etat initial
+2	|		|	3	|		|		|	
+6	|	2	|		|		|		|		Etat initial
+3	|		|		|	4	|		|	
+7	|		|	3	|		|		|		Etat initial
+4	|		|		|		|	5	|	
+8	|		|		|	4	|		|		Etat initial
+5	|		|		|		|		|		Etat final
+0	|		|		|		|	5	|		Etat initial
+
+>>> STANDARDISATION
+
+Non standard -> standardisation...
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+10 états :
+	Q =  [1, 2, 6, 3, 7, 4, 8, 5, 0, 9]
+1 états initiaux :
+	I =  [9]
+1 états finaux :
+	T =  [5]
+12 transitions
+ 	|	a	|	b	|	c	|	d	|	
+   ---------------------------------
+1	|	2	|		|		|		|	
+2	|		|	3	|		|		|	
+6	|	2	|		|		|		|	
+3	|		|		|	4	|		|	
+7	|		|	3	|		|		|	
+4	|		|		|		|	5	|	
+8	|		|		|	4	|		|	
+5	|		|		|		|		|		Etat final
+0	|		|		|		|	5	|	
+9	|	2	|	3	|	4	|	5	|		Etat initial
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+L'automate est déterministe.
+Non complet : aucune transition depuis l'état 0 avec 'a'
+Non complet : aucune transition depuis l'état 0 avec 'b'
+Non complet : aucune transition depuis l'état 0 avec 'c'
+Non complet : aucune transition depuis l'état 1 avec 'b'
+Non complet : aucune transition depuis l'état 1 avec 'c'
+Non complet : aucune transition depuis l'état 1 avec 'd'
+Non complet : aucune transition depuis l'état 2 avec 'a'
+Non complet : aucune transition depuis l'état 2 avec 'c'
+Non complet : aucune transition depuis l'état 2 avec 'd'
+Non complet : aucune transition depuis l'état 3 avec 'a'
+Non complet : aucune transition depuis l'état 3 avec 'b'
+Non complet : aucune transition depuis l'état 3 avec 'd'
+Non complet : aucune transition depuis l'état 4 avec 'a'
+Non complet : aucune transition depuis l'état 4 avec 'b'
+Non complet : aucune transition depuis l'état 4 avec 'c'
+Non complet : aucune transition depuis l'état 5 avec 'a'
+Non complet : aucune transition depuis l'état 5 avec 'b'
+Non complet : aucune transition depuis l'état 5 avec 'c'
+Non complet : aucune transition depuis l'état 5 avec 'd'
+Non complet : aucune transition depuis l'état 6 avec 'b'
+Non complet : aucune transition depuis l'état 6 avec 'c'
+Non complet : aucune transition depuis l'état 6 avec 'd'
+Non complet : aucune transition depuis l'état 7 avec 'a'
+Non complet : aucune transition depuis l'état 7 avec 'c'
+Non complet : aucune transition depuis l'état 7 avec 'd'
+Non complet : aucune transition depuis l'état 8 avec 'a'
+Non complet : aucune transition depuis l'état 8 avec 'b'
+Non complet : aucune transition depuis l'état 8 avec 'd'
+
+Automate déterministe et complet (AFDC) :
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+11 états :
+	Q =  [1, 2, 6, 3, 7, 4, 8, 5, 0, 9, 'P']
+1 états initiaux :
+	I =  [9]
+1 états finaux :
+	T =  [5]
+44 transitions
+ 	|	a	|	b	|	c	|	d	|	
+   ---------------------------------
+1	|	2	|	P	|	P	|	P	|	
+2	|	P	|	3	|	P	|	P	|	
+6	|	2	|	P	|	P	|	P	|	
+3	|	P	|	P	|	4	|	P	|	
+7	|	P	|	3	|	P	|	P	|	
+4	|	P	|	P	|	P	|	5	|	
+8	|	P	|	P	|	4	|	P	|	
+5	|	P	|	P	|	P	|	P	|		Etat final
+0	|	P	|	P	|	P	|	5	|	
+9	|	2	|	3	|	4	|	5	|		Etat initial
+P	|	P	|	P	|	P	|	P	|	
+
+>>> MINIMISATION
+
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+11 états :
+	Q =  [1, 2, 6, 3, 7, 4, 8, 5, 0, 9, 'P']
+1 états initiaux :
+	I =  [9]
+1 états finaux :
+	T =  [5]
+44 transitions
+ 	|	a	|	b	|	c	|	d	|	
+   ---------------------------------
+1	|	2	|	P	|	P	|	P	|	
+2	|	P	|	3	|	P	|	P	|	
+6	|	2	|	P	|	P	|	P	|	
+3	|	P	|	P	|	4	|	P	|	
+7	|	P	|	3	|	P	|	P	|	
+4	|	P	|	P	|	P	|	5	|	
+8	|	P	|	P	|	4	|	P	|	
+5	|	P	|	P	|	P	|	P	|		Etat final
+0	|	P	|	P	|	P	|	5	|	
+9	|	2	|	3	|	4	|	5	|		Etat initial
+P	|	P	|	P	|	P	|	P	|	
+
+FIN DU TRAITEMENT DE L'AUTOMATE #20

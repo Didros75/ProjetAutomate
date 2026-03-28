@@ -1,0 +1,68 @@
+AUTOMATE #26
+
+>>> LECTURE DE L'AUTOMATE
+
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+4 états :
+	Q =  [1, 2, 3, 0]
+1 états initiaux :
+	I =  [1]
+1 états finaux :
+	T =  [3]
+6 transitions
+ 	|	a	|	b	|	
+   ---------------------
+1	|	2	|	2	|		Etat initial
+2	|	0	|	3	|	
+3	|	3	|	3	|		Etat final
+0	|		|		|	
+
+>>> STANDARDISATION
+
+Déjà standard.
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+L'automate est déterministe.
+Non complet : aucune transition depuis l'état 0 avec 'a'
+Non complet : aucune transition depuis l'état 0 avec 'b'
+
+Automate déterministe et complet (AFDC) :
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+5 états :
+	Q =  [1, 2, 3, 0, 'P']
+1 états initiaux :
+	I =  [1]
+1 états finaux :
+	T =  [3]
+10 transitions
+ 	|	a	|	b	|	
+   ---------------------
+1	|	2	|	2	|		Etat initial
+2	|	0	|	3	|	
+3	|	3	|	3	|		Etat final
+0	|	P	|	P	|	
+P	|	P	|	P	|	
+
+>>> MINIMISATION
+
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+5 états :
+	Q =  [1, 2, 3, 0, 'P']
+1 états initiaux :
+	I =  [1]
+1 états finaux :
+	T =  [3]
+10 transitions
+ 	|	a	|	b	|	
+   ---------------------
+1	|	2	|	2	|		Etat initial
+2	|	0	|	3	|	
+3	|	3	|	3	|		Etat final
+0	|	P	|	P	|	
+P	|	P	|	P	|	
+
+FIN DU TRAITEMENT DE L'AUTOMATE #26

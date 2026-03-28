@@ -1,0 +1,82 @@
+AUTOMATE #35
+
+>>> LECTURE DE L'AUTOMATE
+
+3 symboles dans l’alphabet :
+	A =  ['a', 'b', 'e']
+11 états :
+	Q =  [0, 1, 4, 2, 3, 10, 5, 8, 6, 7, 9]
+1 états initiaux :
+	I =  [0]
+1 états finaux :
+	T =  [10]
+13 transitions
+  	|	a 	|	b 	|	e 	|	
+   ------------------------------
+0 	|	 	|	 	|	14 	|		Etat initial
+1 	|	2 	|	 	|	 	|	
+4 	|	 	|	 	|	58 	|	
+2 	|	 	|	3 	|	 	|	
+3 	|	 	|	 	|	10	|	
+10	|		|		|		|		Etat final
+5 	|	6 	|	 	|	 	|	
+8 	|	9 	|	 	|	 	|	
+6 	|	 	|	7 	|	 	|	
+7 	|	 	|	 	|	58 	|	
+9 	|	 	|	 	|	10	|	
+
+>>> STANDARDISATION
+
+Déjà standard.
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+Non déterministe : depuis l'état 0 avec 'e' -> [1, 4]
+Non déterministe : depuis l'état 4 avec 'e' -> [5, 8]
+Non déterministe : depuis l'état 7 avec 'e' -> [5, 8]
+
+Automate déterministe et complet (AFDC) :
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+6 états :
+	Q =  ['01458', '2.6.9.10', 'P', '3.5.7.8.10', '6.9.10', '578']
+1 états initiaux :
+	I =  ['01458']
+3 états finaux :
+	T =  ['2.6.9.10', '3.5.7.8.10', '6.9.10']
+12 transitions
+          	|	a         	|	b         	|	
+   ------------------------------------------------
+01458     	|	2.6.9.10  	|	P         	|		Etat initial
+2.6.9.10  	|	P         	|	3.5.7.8.10	|		Etat final
+P         	|	P         	|	P         	|	
+3.5.7.8.10	|	6.9.10    	|	P         	|		Etat final
+6.9.10    	|	P         	|	578       	|		Etat final
+578       	|	6.9.10    	|	P         	|	
+
+>>> MINIMISATION
+
+3 symboles dans l’alphabet :
+	A =  ['a', 'b', 'e']
+11 états :
+	Q =  [0, 1, 4, 2, 3, 10, 5, 8, 6, 7, 9]
+1 états initiaux :
+	I =  [0]
+1 états finaux :
+	T =  [10]
+13 transitions
+  	|	a 	|	b 	|	e 	|	
+   ------------------------------
+0 	|	 	|	 	|	14 	|		Etat initial
+1 	|	2 	|	 	|	 	|	
+4 	|	 	|	 	|	58 	|	
+2 	|	 	|	3 	|	 	|	
+3 	|	 	|	 	|	10	|	
+10	|		|		|		|		Etat final
+5 	|	6 	|	 	|	 	|	
+8 	|	9 	|	 	|	 	|	
+6 	|	 	|	7 	|	 	|	
+7 	|	 	|	 	|	58 	|	
+9 	|	 	|	 	|	10	|	
+
+FIN DU TRAITEMENT DE L'AUTOMATE #35
