@@ -1,0 +1,70 @@
+AUTOMATE #34
+
+>>> LECTURE DE L'AUTOMATE
+
+3 symboles dans l’alphabet :
+	A =  ['a', 'b', 'e']
+7 états :
+	Q =  [0, 1, 4, 2, 3, 6, 5]
+1 états initiaux :
+	I =  [0]
+1 états finaux :
+	T =  [6]
+10 transitions
+ 	|	a	|	b	|	e	|	
+   ---------------------------
+0	|		|		|	14	|		Etat initial
+1	|	2	|		|	2	|	
+4	|		|	5	|		|	
+2	|		|	3	|		|	
+3	|		|		|	62	|	
+6	|		|		|		|		Etat final
+5	|		|		|	64	|	
+
+>>> STANDARDISATION
+
+Déjà standard.
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+Non déterministe : depuis l'état 0 avec 'e' -> [1, 4]
+Non déterministe : depuis l'état 3 avec 'e' -> [6, 2]
+Non déterministe : depuis l'état 5 avec 'e' -> [6, 4]
+
+Automate déterministe et complet (AFDC) :
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+5 états :
+	Q =  ['0124', '2', '23456', 'P', '236']
+1 états initiaux :
+	I =  ['0124']
+2 états finaux :
+	T =  ['23456', '236']
+10 transitions
+     	|	a    	|	b    	|	
+   ---------------------------------
+0124 	|	2    	|	23456	|		Etat initial
+2    	|	P    	|	236  	|	
+23456	|	P    	|	23456	|		Etat final
+P    	|	P    	|	P    	|	
+236  	|	P    	|	236  	|		Etat final
+
+>>> MINIMISATION
+
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+4 états :
+	Q =  ['23456.236', 'P', '0124', '2']
+1 états initiaux :
+	I =  ['0124']
+1 états finaux :
+	T =  ['23456.236']
+8 transitions
+         	|	a        	|	b        	|	
+   ---------------------------------------------
+23456.236	|	P        	|	23456.236	|		Etat final
+P        	|	P        	|	P        	|	
+0124     	|	2        	|	23456.236	|		Etat initial
+2        	|	P        	|	23456.236	|	
+
+FIN DU TRAITEMENT DE L'AUTOMATE #34

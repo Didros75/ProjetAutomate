@@ -1,0 +1,89 @@
+AUTOMATE #14
+
+>>> LECTURE DE L'AUTOMATE
+
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+4 états :
+	Q =  [0, 2, 3, 1]
+1 états initiaux :
+	I =  [0]
+1 états finaux :
+	T =  [1]
+10 transitions
+ 	|	a	|	b	|	c	|	d	|	
+   ---------------------------------
+0	|	0	|	2	|	3	|	1	|		Etat initial
+2	|		|	2	|	3	|	1	|	
+3	|		|		|	3	|	1	|	
+1	|		|		|		|	1	|		Etat final
+
+>>> STANDARDISATION
+
+Non standard -> standardisation...
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+5 états :
+	Q =  [0, 2, 3, 1, 4]
+1 états initiaux :
+	I =  [4]
+1 états finaux :
+	T =  [1]
+14 transitions
+ 	|	a	|	b	|	c	|	d	|	
+   ---------------------------------
+0	|	0	|	2	|	3	|	1	|	
+2	|		|	2	|	3	|	1	|	
+3	|		|		|	3	|	1	|	
+1	|		|		|		|	1	|		Etat final
+4	|	0	|	2	|	3	|	1	|		Etat initial
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+L'automate est déterministe.
+Non complet : aucune transition depuis l'état 1 avec 'a'
+Non complet : aucune transition depuis l'état 1 avec 'b'
+Non complet : aucune transition depuis l'état 1 avec 'c'
+Non complet : aucune transition depuis l'état 2 avec 'a'
+Non complet : aucune transition depuis l'état 3 avec 'a'
+Non complet : aucune transition depuis l'état 3 avec 'b'
+
+Automate déterministe et complet (AFDC) :
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+6 états :
+	Q =  [0, 2, 3, 1, 4, 'P']
+1 états initiaux :
+	I =  [4]
+1 états finaux :
+	T =  [1]
+24 transitions
+ 	|	a	|	b	|	c	|	d	|	
+   ---------------------------------
+0	|	0	|	2	|	3	|	1	|	
+2	|	P	|	2	|	3	|	1	|	
+3	|	P	|	P	|	3	|	1	|	
+1	|	P	|	P	|	P	|	1	|		Etat final
+4	|	0	|	2	|	3	|	1	|		Etat initial
+P	|	P	|	P	|	P	|	P	|	
+
+>>> MINIMISATION
+
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+5 états :
+	Q =  ['1', 'P', '0.4', '2', '3']
+1 états initiaux :
+	I =  ['0.4']
+1 états finaux :
+	T =  ['1']
+20 transitions
+   	|	a  	|	b  	|	c  	|	d  	|	
+   ---------------------------------------
+1  	|	P  	|	P  	|	P  	|	1  	|		Etat final
+P  	|	P  	|	P  	|	P  	|	P  	|	
+0.4	|	0.4	|	2  	|	3  	|	1  	|		Etat initial
+2  	|	P  	|	2  	|	3  	|	1  	|	
+3  	|	P  	|	P  	|	3  	|	1  	|	
+
+FIN DU TRAITEMENT DE L'AUTOMATE #14

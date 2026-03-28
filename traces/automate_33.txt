@@ -1,0 +1,83 @@
+AUTOMATE #33
+
+>>> LECTURE DE L'AUTOMATE
+
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'e']
+13 états :
+	Q =  [0, 1, 7, 2, 4, 3, 5, 6, 12, 8, 9, 11, 10]
+1 états initiaux :
+	I =  [0]
+1 états finaux :
+	T =  [12]
+18 transitions
+  	|	a 	|	b 	|	c 	|	e 	|	
+   ------------------------------------
+0 	|	 	|	 	|	 	|	17 	|		Etat initial
+1 	|	 	|	 	|	 	|	24 	|	
+7 	|	 	|	 	|	 	|	89 	|	
+2 	|	3 	|	 	|	 	|	 	|	
+4 	|	 	|	4 	|	 	|	5 	|	
+3 	|	 	|	 	|	 	|	5 	|	
+5 	|	 	|	 	|	6 	|	 	|	
+6 	|	 	|	 	|	 	|	12	|	
+12	|		|		|		|		|		Etat final
+8 	|	8 	|	 	|	 	|	11	|	
+9 	|		|	10	|		|		|	
+11	|		|		|	11	|	12	|	
+10	|		|		|		|	11	|	
+
+>>> STANDARDISATION
+
+Déjà standard.
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+Non déterministe : depuis l'état 0 avec 'e' -> [1, 7]
+Non déterministe : depuis l'état 1 avec 'e' -> [2, 4]
+Non déterministe : depuis l'état 7 avec 'e' -> [8, 9]
+
+Automate déterministe et complet (AFDC) :
+3 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c']
+9 états :
+	Q =  ['0.1.2.4.5.7.8.9.11.12', '3.5.8.11.12', '4.5.10.11.12', '6.11.12', '8.11.12', 'P', '45', '11.12', '6.12']
+1 états initiaux :
+	I =  ['0.1.2.4.5.7.8.9.11.12']
+7 états finaux :
+	T =  ['0.1.2.4.5.7.8.9.11.12', '11.12', '3.5.8.11.12', '4.5.10.11.12', '6.11.12', '6.12', '8.11.12']
+27 transitions
+                     	|	a                    	|	b                    	|	c                    	|	
+   ---------------------------------------------------------------------------------------
+0.1.2.4.5.7.8.9.11.12	|	3.5.8.11.12          	|	4.5.10.11.12         	|	6.11.12              	|		Etat initial	Etat final
+3.5.8.11.12          	|	8.11.12              	|	P                    	|	6.11.12              	|		Etat final
+4.5.10.11.12         	|	P                    	|	45                   	|	6.11.12              	|		Etat final
+6.11.12              	|	P                    	|	P                    	|	11.12                	|		Etat final
+8.11.12              	|	8.11.12              	|	P                    	|	11.12                	|		Etat final
+P                    	|	P                    	|	P                    	|	P                    	|	
+45                   	|	P                    	|	45                   	|	6.12                 	|	
+11.12                	|	P                    	|	P                    	|	11.12                	|		Etat final
+6.12                 	|	P                    	|	P                    	|	P                    	|		Etat final
+
+>>> MINIMISATION
+
+3 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c']
+7 états :
+	Q =  ['0.1.2.4.5.7.8.9.11.12', '3.5.8.11.12.8.11.12', '4.5.10.11.12', '6.11.12.11.12', 'P', '45', '6.12']
+1 états initiaux :
+	I =  ['0.1.2.4.5.7.8.9.11.12']
+5 états finaux :
+	T =  ['0.1.2.4.5.7.8.9.11.12', '3.5.8.11.12.8.11.12', '4.5.10.11.12', '6.11.12.11.12', '6.12']
+21 transitions
+                     	|	a                    	|	b                    	|	c                    	|	
+   ---------------------------------------------------------------------------------------
+0.1.2.4.5.7.8.9.11.12	|	3.5.8.11.12.8.11.12  	|	4.5.10.11.12         	|	6.11.12.11.12        	|		Etat initial	Etat final
+3.5.8.11.12.8.11.12  	|	3.5.8.11.12.8.11.12  	|	P                    	|	6.11.12.11.12        	|		Etat final
+4.5.10.11.12         	|	P                    	|	45                   	|	6.11.12.11.12        	|		Etat final
+6.11.12.11.12        	|	P                    	|	P                    	|	6.11.12.11.12        	|		Etat final
+P                    	|	P                    	|	P                    	|	P                    	|	
+45                   	|	P                    	|	45                   	|	6.12                 	|	
+6.12                 	|	P                    	|	P                    	|	P                    	|		Etat final
+
+FIN DU TRAITEMENT DE L'AUTOMATE #33

@@ -1,0 +1,72 @@
+AUTOMATE #31
+
+>>> LECTURE DE L'AUTOMATE
+
+3 symboles dans l’alphabet :
+	A =  ['a', 'b', 'e']
+8 états :
+	Q =  [0, 1, 4, 2, 3, 7, 5, 6]
+1 états initiaux :
+	I =  [0]
+1 états finaux :
+	T =  [7]
+12 transitions
+ 	|	a	|	b	|	e	|	
+   ---------------------------
+0	|		|		|	14	|		Etat initial
+1	|	2	|		|	3	|	
+4	|		|	5	|		|	
+2	|	3	|	1	|		|	
+3	|		|	3	|	7	|	
+7	|		|		|		|		Etat final
+5	|		|	6	|		|	
+6	|		|		|	74	|	
+
+>>> STANDARDISATION
+
+Déjà standard.
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+Non déterministe : depuis l'état 0 avec 'e' -> [1, 4]
+Non déterministe : depuis l'état 6 avec 'e' -> [7, 4]
+
+Automate déterministe et complet (AFDC) :
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+7 états :
+	Q =  ['01347', '2', '357', '37', '137', 'P', '3467']
+1 états initiaux :
+	I =  ['01347']
+5 états finaux :
+	T =  ['01347', '137', '3467', '357', '37']
+14 transitions
+     	|	a    	|	b    	|	
+   ---------------------------------
+01347	|	2    	|	357  	|		Etat initial	Etat final
+2    	|	37   	|	137  	|	
+357  	|	P    	|	3467 	|		Etat final
+37   	|	P    	|	37   	|		Etat final
+137  	|	2    	|	37   	|		Etat final
+P    	|	P    	|	P    	|	
+3467 	|	P    	|	357  	|		Etat final
+
+>>> MINIMISATION
+
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+4 états :
+	Q =  ['01347.137', '2', '357.37.3467', 'P']
+1 états initiaux :
+	I =  ['01347.137']
+2 états finaux :
+	T =  ['01347.137', '357.37.3467']
+8 transitions
+           	|	a          	|	b          	|	
+   ---------------------------------------------------
+01347.137  	|	2          	|	357.37.3467	|		Etat initial	Etat final
+2          	|	357.37.3467	|	01347.137  	|	
+357.37.3467	|	P          	|	357.37.3467	|		Etat final
+P          	|	P          	|	P          	|	
+
+FIN DU TRAITEMENT DE L'AUTOMATE #31

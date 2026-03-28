@@ -1,0 +1,90 @@
+AUTOMATE #16
+
+>>> LECTURE DE L'AUTOMATE
+
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+5 états :
+	Q =  [1, 2, 3, 4, 0]
+1 états initiaux :
+	I =  [1]
+1 états finaux :
+	T =  [0]
+8 transitions
+ 	|	a	|	b	|	c	|	d	|	
+   ---------------------------------
+1	|	21	|		|		|		|		Etat initial
+2	|		|	32	|		|		|	
+3	|		|		|	43	|		|	
+4	|		|		|		|	04	|	
+0	|		|		|		|		|		Etat final
+
+>>> STANDARDISATION
+
+Non standard -> standardisation...
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+6 états :
+	Q =  [1, 2, 3, 4, 0, 5]
+1 états initiaux :
+	I =  [5]
+1 états finaux :
+	T =  [0]
+10 transitions
+ 	|	a	|	b	|	c	|	d	|	
+   ---------------------------------
+1	|	21	|		|		|		|	
+2	|		|	32	|		|		|	
+3	|		|		|	43	|		|	
+4	|		|		|		|	04	|	
+0	|		|		|		|		|		Etat final
+5	|	21	|		|		|		|		Etat initial
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+Non déterministe : depuis l'état 1 avec 'a' -> [2, 1]
+Non déterministe : depuis l'état 5 avec 'a' -> [2, 1]
+Non déterministe : depuis l'état 2 avec 'b' -> [3, 2]
+Non déterministe : depuis l'état 3 avec 'c' -> [4, 3]
+Non déterministe : depuis l'état 4 avec 'd' -> [0, 4]
+
+Automate déterministe et complet (AFDC) :
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+6 états :
+	Q =  ['5', '12', 'P', '23', '34', '04']
+1 états initiaux :
+	I =  ['5']
+1 états finaux :
+	T =  ['04']
+24 transitions
+  	|	a 	|	b 	|	c 	|	d 	|	
+   ------------------------------------
+5 	|	12	|	P 	|	P 	|	P 	|		Etat initial
+12	|	12	|	23	|	P 	|	P 	|	
+P 	|	P 	|	P 	|	P 	|	P 	|	
+23	|	P 	|	23	|	34	|	P 	|	
+34	|	P 	|	P 	|	34	|	04	|	
+04	|	P 	|	P 	|	P 	|	04	|		Etat final
+
+>>> MINIMISATION
+
+4 symboles dans l’alphabet :
+	A =  ['a', 'b', 'c', 'd']
+6 états :
+	Q =  ['04', 'P', '5', '12', '23', '34']
+1 états initiaux :
+	I =  ['5']
+1 états finaux :
+	T =  ['04']
+24 transitions
+  	|	a 	|	b 	|	c 	|	d 	|	
+   ------------------------------------
+04	|	P 	|	P 	|	P 	|	04	|		Etat final
+P 	|	P 	|	P 	|	P 	|	P 	|	
+5 	|	12	|	P 	|	P 	|	P 	|		Etat initial
+12	|	12	|	23	|	P 	|	P 	|	
+23	|	P 	|	23	|	34	|	P 	|	
+34	|	P 	|	P 	|	34	|	04	|	
+
+FIN DU TRAITEMENT DE L'AUTOMATE #16

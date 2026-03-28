@@ -1,0 +1,85 @@
+AUTOMATE #40
+
+>>> LECTURE DE L'AUTOMATE
+
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+3 états :
+	Q =  [0, 1, 2]
+2 états initiaux :
+	I =  [0, 1]
+2 états finaux :
+	T =  [0, 2]
+6 transitions
+ 	|	a	|	b	|	
+   ---------------------
+0	|		|	12	|		Etat initial	Etat final
+1	|	02	|	2	|		Etat initial
+2	|	0	|		|		Etat final
+
+>>> STANDARDISATION
+
+Non standard -> standardisation...
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+4 états :
+	Q =  [0, 1, 2, 3]
+1 états initiaux :
+	I =  [3]
+3 états finaux :
+	T =  [0, 2, 3]
+10 transitions
+ 	|	a	|	b	|	
+   ---------------------
+0	|		|	12	|		Etat final
+1	|	02	|	2	|	
+2	|	0	|		|		Etat final
+3	|	02	|	12	|		Etat initial	Etat final
+
+>>> DÉTERMINISATION ET COMPLÉTION
+
+Non déterministe : depuis l'état 1 avec 'a' -> [0, 2]
+Non déterministe : depuis l'état 3 avec 'a' -> [0, 2]
+Non déterministe : depuis l'état 0 avec 'b' -> [1, 2]
+Non déterministe : depuis l'état 3 avec 'b' -> [1, 2]
+
+Automate déterministe et complet (AFDC) :
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+6 états :
+	Q =  ['3', '02', '12', '0', '2', 'P']
+1 états initiaux :
+	I =  ['3']
+5 états finaux :
+	T =  ['0', '02', '12', '2', '3']
+12 transitions
+  	|	a 	|	b 	|	
+   ------------------------
+3 	|	02	|	12	|		Etat initial	Etat final
+02	|	0 	|	12	|		Etat final
+12	|	02	|	2 	|		Etat final
+0 	|	P 	|	12	|		Etat final
+2 	|	0 	|	P 	|		Etat final
+P 	|	P 	|	P 	|	
+
+>>> MINIMISATION
+
+2 symboles dans l’alphabet :
+	A =  ['a', 'b']
+6 états :
+	Q =  ['3', '02', '12', '0', '2', 'P']
+1 états initiaux :
+	I =  ['3']
+5 états finaux :
+	T =  ['0', '02', '12', '2', '3']
+12 transitions
+  	|	a 	|	b 	|	
+   ------------------------
+3 	|	02	|	12	|		Etat initial	Etat final
+02	|	0 	|	12	|		Etat final
+12	|	02	|	2 	|		Etat final
+0 	|	P 	|	12	|		Etat final
+2 	|	0 	|	P 	|		Etat final
+P 	|	P 	|	P 	|	
+
+FIN DU TRAITEMENT DE L'AUTOMATE #40
