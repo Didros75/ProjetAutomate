@@ -1,3 +1,8 @@
+"""
+Gère la création de 44 fichiers .txt dans un dossier traces
+pour suivre la trace d'exécution des 44 automates
+"""
+
 import sys
 from utile import txt_dictionnaire, afficher_automate
 from standardisation import est_standard, standardiser
@@ -9,17 +14,23 @@ fichiers_automates = "automates"
 dossier = "traces/"
 
 def traiter_automate(numero):
+    """
+    redirige la sortie du terminal dans un fichier .txt
+    pour ensuite réaliser une trace d'execution d'un automates donnée
+    :param numero: numero coorespondant à l'automate à traiter
+    :return: none
+    """
     with open(f"{dossier}automate_{numero:02d}.txt", "w", encoding="utf-8") as f:
         sys.stdout = f
 
         print(f"AUTOMATE #{numero:02d}")
 
-        # 1. Lecture
+        #Lecture
         print("\n>>> LECTURE DE L'AUTOMATE\n")
         automate = txt_dictionnaire(fichiers_automates, f"{numero:02d}")
         afficher_automate(automate)
 
-        # 2. Standardisation
+        #Standardisation
         print("\n>>> STANDARDISATION\n")
         if est_standard(automate):
             print("Déjà standard.")
@@ -28,11 +39,11 @@ def traiter_automate(numero):
             automate = standardiser(automate)
             afficher_automate(automate)
 
-        # 3. Déterminisation & complétion
+        #Déterminisation et complétion
         print("\n>>> DÉTERMINISATION ET COMPLÉTION\n")
         AFDC = determiniser_et_completer(automate)
 
-        # 4. Minimisation
+        #Minimisation
         print("\n>>> MINIMISATION\n")
         AFDCM = minimise(AFDC)
         afficher_automate(AFDCM)
@@ -40,6 +51,6 @@ def traiter_automate(numero):
         print(f"\nFIN DU TRAITEMENT DE L'AUTOMATE #{numero:02d}")
         sys.stdout = sys.__stdout__
 
-# exécution du programme sur les 44 automates
+"""exécution du programme sur les 44 automates"""
 for n in range(1, 45):
     traiter_automate(n)
