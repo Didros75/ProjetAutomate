@@ -49,7 +49,7 @@ def traiter_automate(numero):
         #Minimisation
         print("\n>>> MINIMISATION\n")
         AFDCM = minimise(AFDC)
-        utile.afficher_automate(automate)
+        utile.afficher_automate(AFDCM)
 
         print(f"\nFIN DU TRAITEMENT DE L'AUTOMATE #{numero:02d}")
         sys.stdout = sys.__stdout__
