@@ -394,7 +394,7 @@ def traiter_automate():
             print("\033[2J\033[H", end="")
             return   # retour à la boucle principale -> chargement d'un autre automate
 
-        #chargement en Mermaid
+        # 8. Chargement en Mermaid
         elif choix == 8:
 
             print()
